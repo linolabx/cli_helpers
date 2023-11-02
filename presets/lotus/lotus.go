@@ -55,7 +55,7 @@ func (this *LotusFlagHelper) GetValue() string {
 	return this.ctx.String(this.Name())
 }
 
-func (this *LotusFlagHelper) GetLotusClient() *api.FullNode {
+func (this *LotusFlagHelper) GetLotusClient() api.FullNode {
 	apiInfos := lotus_cli_util.ParseApiInfoMulti(this.GetValue())
 	_panic := func(msg string) {
 		panic(fmt.Sprintf("Invalid Lotus API Info provided by flag %s: %s", this.Name(), msg))
@@ -80,5 +80,5 @@ func (this *LotusFlagHelper) GetLotusClient() *api.FullNode {
 		panic("faild to create rpc client: " + err.Error())
 	}
 
-	return &cl
+	return cl
 }
