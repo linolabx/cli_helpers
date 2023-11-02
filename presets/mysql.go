@@ -60,7 +60,7 @@ func (this *MySQLFlagHelper) GetValue() string {
 	return this.ctx.String(this.Name())
 }
 
-func (this *MySQLFlagHelper) GetDB(ctx *cli.Context) *gorm.DB {
+func (this *MySQLFlagHelper) GetDB() *gorm.DB {
 	_, err := raw_mysql_driver.ParseDSN(this.GetValue())
 	if err != nil {
 		panic(fmt.Sprintf("Invalid MySQL URL provided by flag %s: %s", this.Name(), err))

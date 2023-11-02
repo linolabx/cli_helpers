@@ -58,7 +58,7 @@ func (this *RedisFlagHelper) GetValue() string {
 	return this.ctx.String(this.Name())
 }
 
-func (this *RedisFlagHelper) GetDB(ctx *cli.Context) *redis.Client {
+func (this *RedisFlagHelper) GetDB() *redis.Client {
 	_, err := redis.ParseURL(this.GetValue())
 	if err != nil {
 		panic(fmt.Sprintf("Invalid Redis URL provided by flag %s: %s", this.Name(), err))

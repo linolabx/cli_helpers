@@ -60,7 +60,7 @@ func (this *ClickHouseHelper) GetValue() string {
 	return this.ctx.String(this.Name())
 }
 
-func (this *ClickHouseHelper) GetDB(ctx *cli.Context) *gorm.DB {
+func (this *ClickHouseHelper) GetDB() *gorm.DB {
 	_, err := raw_clickhouse_driver.ParseDSN(this.GetValue())
 	if err != nil {
 		panic(fmt.Sprintf("Invalid ClickHouse URL provided by flag %s: %s", this.Name(), err))
