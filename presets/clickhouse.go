@@ -52,7 +52,7 @@ func (this *ClickHouseFlagHelper) Flag() *cli.StringFlag {
 		Name:     this.Name(),
 		EnvVars:  []string{this.Env()},
 		Required: true,
-		Category: "datasouce",
+		Category: "datasource",
 	}
 }
 
