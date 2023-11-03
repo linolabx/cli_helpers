@@ -47,7 +47,7 @@ func (this *LotusFlagHelper) Flag() *cli.StringFlag {
 		Name:     this.Name(),
 		EnvVars:  []string{this.Env()},
 		Value:    "/ip4/127.0.0.1/tcp/4001",
-		Category: "data source",
+		Category: "datasource",
 	}
 }
 
