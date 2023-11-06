@@ -1,7 +1,7 @@
 package presets
 
 import (
-	"fmt"
+	"log"
 
 	raw_clickhouse_driver "github.com/ClickHouse/clickhouse-go/v2"
 	"github.com/iancoleman/strcase"
@@ -10,18 +10,18 @@ import (
 	"gorm.io/gorm"
 )
 
-type ClickHouseFlagHelper struct {
+type ClickHousePS struct {
 	ctx         *cli.Context
 	prefix      string
 	gorm_config *gorm.Config
 }
 
-func (this *ClickHouseFlagHelper) WithPrefix(prefix string) *ClickHouseFlagHelper {
+func (this *ClickHousePS) WithPrefix(prefix string) *ClickHousePS {
 	this.prefix = prefix
 	return this
 }
 
-func (this *ClickHouseFlagHelper) WithCliContext(ctx *cli.Context) *ClickHouseFlagHelper {
+func (this *ClickHousePS) WithCliContext(ctx *cli.Context) *ClickHousePS {
 	if this.ctx != nil {
 		panic("cli context already set")
 	}
@@ -30,12 +30,12 @@ func (this *ClickHouseFlagHelper) WithCliContext(ctx *cli.Context) *ClickHouseFl
 	return this
 }
 
-func (this *ClickHouseFlagHelper) WithGormConfig(config *gorm.Config) *ClickHouseFlagHelper {
+func (this *ClickHousePS) WithGormConfig(config *gorm.Config) *ClickHousePS {
 	this.gorm_config = config
 	return this
 }
 
-func (this *ClickHouseFlagHelper) Name() string {
+func (this *ClickHousePS) Name() string {
 	name := "clickhouse-url"
 	if this.prefix != "" {
 		name = this.prefix + "-" + name
@@ -43,32 +43,33 @@ func (this *ClickHouseFlagHelper) Name() string {
 	return name
 }
 
-func (this *ClickHouseFlagHelper) Env() string {
+func (this *ClickHousePS) Env() string {
 	return strcase.ToScreamingSnake(this.Name())
 }
 
-func (this *ClickHouseFlagHelper) Flag() *cli.StringFlag {
+func (this *ClickHousePS) Flag() *cli.StringFlag {
 	return &cli.StringFlag{
 		Name:     this.Name(),
 		EnvVars:  []string{this.Env()},
 		Required: true,
 		Category: "datasource",
+		Usage:    "ClickHouse URL, e.g. clickhouse://user:password@localhost:8123?database=clicks",
 	}
 }
 
-func (this *ClickHouseFlagHelper) GetValue() string {
+func (this *ClickHousePS) GetValue() string {
 	return this.ctx.String(this.Name())
 }
 
-func (this *ClickHouseFlagHelper) GetDB() *gorm.DB {
+func (this *ClickHousePS) GetDB() *gorm.DB {
 	_, err := raw_clickhouse_driver.ParseDSN(this.GetValue())
 	if err != nil {
-		panic(fmt.Sprintf("Invalid ClickHouse URL provided by flag %s: %s", this.Name(), err))
+		log.Panicf("Invalid ClickHouse URL provided by flag %s: %s", this.Name(), err)
 	}
 
 	conn, err := gorm.Open(clickhouse.Open(this.GetValue()), &gorm.Config{})
 	if err != nil {
-		panic(fmt.Sprintf("Failed to connect to ClickHouse provided by %s: %s", this.Name(), err))
+		log.Panicf("Failed to connect to ClickHouse provided by %s: %s", this.Name(), err)
 	}
 	return conn
 }

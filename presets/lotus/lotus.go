@@ -2,7 +2,7 @@ package preset_lotus
 
 import (
 	"context"
-	"fmt"
+	"log"
 
 	"github.com/filecoin-project/lotus/api"
 	"github.com/filecoin-project/lotus/api/client"
@@ -11,17 +11,17 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-type LotusFlagHelper struct {
+type LotusPS struct {
 	ctx    *cli.Context
 	prefix string
 }
 
-func (this *LotusFlagHelper) WithPrefix(prefix string) *LotusFlagHelper {
+func (this *LotusPS) WithPrefix(prefix string) *LotusPS {
 	this.prefix = prefix
 	return this
 }
 
-func (this *LotusFlagHelper) WithCliContext(ctx *cli.Context) *LotusFlagHelper {
+func (this *LotusPS) WithCliContext(ctx *cli.Context) *LotusPS {
 	if this.ctx != nil {
 		panic("cli context already set")
 	}
@@ -30,7 +30,7 @@ func (this *LotusFlagHelper) WithCliContext(ctx *cli.Context) *LotusFlagHelper {
 	return this
 }
 
-func (this *LotusFlagHelper) Name() string {
+func (this *LotusPS) Name() string {
 	name := "fullnode-api-info"
 	if this.prefix != "" {
 		name = this.prefix + "-" + name
@@ -38,27 +38,28 @@ func (this *LotusFlagHelper) Name() string {
 	return name
 }
 
-func (this *LotusFlagHelper) Env() string {
+func (this *LotusPS) Env() string {
 	return strcase.ToScreamingSnake(this.Name())
 }
 
-func (this *LotusFlagHelper) Flag() *cli.StringFlag {
+func (this *LotusPS) Flag() *cli.StringFlag {
 	return &cli.StringFlag{
 		Name:     this.Name(),
 		EnvVars:  []string{this.Env()},
-		Value:    "/ip4/127.0.0.1/tcp/4001",
+		Required: true,
 		Category: "datasource",
+		Usage:    "Fullnode API Info, e.g. /ip4/127.0.0.1/tcp/4001",
 	}
 }
 
-func (this *LotusFlagHelper) GetValue() string {
+func (this *LotusPS) GetValue() string {
 	return this.ctx.String(this.Name())
 }
 
-func (this *LotusFlagHelper) GetLotusClient() api.FullNode {
+func (this *LotusPS) GetLotusClient() api.FullNode {
 	apiInfos := lotus_cli_util.ParseApiInfoMulti(this.GetValue())
 	_panic := func(msg string) {
-		panic(fmt.Sprintf("Invalid Lotus API Info provided by flag %s: %s", this.Name(), msg))
+		log.Panicf("Invalid Lotus API Info provided by flag %s: %s", this.Name(), msg)
 	}
 
 	if len(apiInfos) == 0 {

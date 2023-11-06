@@ -1,7 +1,7 @@
 package presets
 
 import (
-	"fmt"
+	"log"
 
 	raw_mysql_driver "github.com/go-sql-driver/mysql"
 	"github.com/iancoleman/strcase"
@@ -10,18 +10,18 @@ import (
 	"gorm.io/gorm"
 )
 
-type MySQLFlagHelper struct {
+type MySQLPS struct {
 	ctx         *cli.Context
 	prefix      string
 	gorm_config *gorm.Config
 }
 
-func (this *MySQLFlagHelper) WithPrefix(prefix string) *MySQLFlagHelper {
+func (this *MySQLPS) WithPrefix(prefix string) *MySQLPS {
 	this.prefix = prefix
 	return this
 }
 
-func (this *MySQLFlagHelper) WithCliContext(ctx *cli.Context) *MySQLFlagHelper {
+func (this *MySQLPS) WithCliContext(ctx *cli.Context) *MySQLPS {
 	if this.ctx != nil {
 		panic("cli context already set")
 	}
@@ -30,12 +30,12 @@ func (this *MySQLFlagHelper) WithCliContext(ctx *cli.Context) *MySQLFlagHelper {
 	return this
 }
 
-func (this *MySQLFlagHelper) WithGormConfig(config *gorm.Config) *MySQLFlagHelper {
+func (this *MySQLPS) WithGormConfig(config *gorm.Config) *MySQLPS {
 	this.gorm_config = config
 	return this
 }
 
-func (this *MySQLFlagHelper) Name() string {
+func (this *MySQLPS) Name() string {
 	name := "mysql-url"
 	if this.prefix != "" {
 		name = this.prefix + "-" + name
@@ -43,32 +43,33 @@ func (this *MySQLFlagHelper) Name() string {
 	return name
 }
 
-func (this *MySQLFlagHelper) Env() string {
+func (this *MySQLPS) Env() string {
 	return strcase.ToScreamingSnake(this.Name())
 }
 
-func (this *MySQLFlagHelper) Flag() *cli.StringFlag {
+func (this *MySQLPS) Flag() *cli.StringFlag {
 	return &cli.StringFlag{
 		Name:     this.Name(),
 		EnvVars:  []string{this.Env()},
 		Required: true,
 		Category: "datasource",
+		Usage:    "MySQL URL, e.g. mysql://user:password@localhost:3306/database",
 	}
 }
 
-func (this *MySQLFlagHelper) GetValue() string {
+func (this *MySQLPS) GetValue() string {
 	return this.ctx.String(this.Name())
 }
 
-func (this *MySQLFlagHelper) GetDB() *gorm.DB {
+func (this *MySQLPS) GetDB() *gorm.DB {
 	_, err := raw_mysql_driver.ParseDSN(this.GetValue())
 	if err != nil {
-		panic(fmt.Sprintf("Invalid MySQL URL provided by flag %s: %s", this.Name(), err))
+		log.Panicf("Invalid MySQL URL provided by flag %s: %s", this.Name(), err)
 	}
 
 	conn, err := gorm.Open(mysql.Open(this.GetValue()), this.gorm_config)
 	if err != nil {
-		panic(fmt.Sprintf("Failed to connect to MySQL provided by %s: %s", this.Name(), err))
+		log.Panicf("Failed to connect to MySQL provided by %s: %s", this.Name(), err)
 	}
 	return conn
 }

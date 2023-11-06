@@ -1,7 +1,7 @@
 package presets
 
 import (
-	"fmt"
+	"log"
 	"strings"
 
 	"github.com/iancoleman/strcase"
@@ -9,7 +9,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var LevelMap = map[string]zerolog.Level{
+var LogLevelMap = map[string]zerolog.Level{
 	zerolog.DebugLevel.String(): zerolog.DebugLevel,
 	zerolog.InfoLevel.String():  zerolog.InfoLevel,
 	zerolog.WarnLevel.String():  zerolog.WarnLevel,
@@ -21,17 +21,17 @@ var LevelMap = map[string]zerolog.Level{
 	zerolog.TraceLevel.String(): zerolog.TraceLevel,
 }
 
-type ZeroLogFlagHelper struct {
+type ZeroLogPS struct {
 	ctx    *cli.Context
 	prefix string
 }
 
-func (this *ZeroLogFlagHelper) WithPrefix(prefix string) *ZeroLogFlagHelper {
+func (this *ZeroLogPS) WithPrefix(prefix string) *ZeroLogPS {
 	this.prefix = prefix
 	return this
 }
 
-func (this *ZeroLogFlagHelper) WithCliContext(ctx *cli.Context) *ZeroLogFlagHelper {
+func (this *ZeroLogPS) WithCliContext(ctx *cli.Context) *ZeroLogPS {
 	if this.ctx != nil {
 		panic("cli context already set")
 	}
@@ -40,7 +40,7 @@ func (this *ZeroLogFlagHelper) WithCliContext(ctx *cli.Context) *ZeroLogFlagHelp
 	return this
 }
 
-func (this *ZeroLogFlagHelper) Name() string {
+func (this *ZeroLogPS) Name() string {
 	name := "log-level"
 	if this.prefix != "" {
 		name = this.prefix + "-" + name
@@ -48,27 +48,28 @@ func (this *ZeroLogFlagHelper) Name() string {
 	return name
 }
 
-func (this *ZeroLogFlagHelper) Env() string {
+func (this *ZeroLogPS) Env() string {
 	return strcase.ToScreamingSnake(this.Name())
 }
 
-func (this *ZeroLogFlagHelper) Flag() *cli.StringFlag {
+func (this *ZeroLogPS) Flag() *cli.StringFlag {
 	return &cli.StringFlag{
 		Name:     this.Name(),
 		EnvVars:  []string{this.Env()},
 		Required: true,
 		Category: "logging",
+		Usage:    "Log level, e.g. debug, info, warn, error, fatal, panic, trace, disabled",
 	}
 }
 
-func (this *ZeroLogFlagHelper) GetValue() string {
+func (this *ZeroLogPS) GetValue() string {
 	return strings.ToLower(this.ctx.String(this.Name()))
 }
 
-func (this *ZeroLogFlagHelper) GetLogger() zerolog.Logger {
-	level, ok := LevelMap[this.GetValue()]
+func (this *ZeroLogPS) GetLogger() zerolog.Logger {
+	level, ok := LogLevelMap[this.GetValue()]
 	if !ok {
-		panic(fmt.Sprintf("Invalid log level provided by flag %s: %s", this.Name(), this.GetValue()))
+		log.Panicf("Invalid log level provided by flag %s: %s", this.Name(), this.GetValue())
 	}
 
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnixMicro

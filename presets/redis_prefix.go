@@ -6,18 +6,18 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-type RedisPrefixFlagHelper struct {
+type RedisPrefixPS struct {
 	ctx         *cli.Context
 	prefix      string
 	interceptor func(*redis.Options)
 }
 
-func (this *RedisPrefixFlagHelper) WithPrefix(prefix string) *RedisPrefixFlagHelper {
+func (this *RedisPrefixPS) WithPrefix(prefix string) *RedisPrefixPS {
 	this.prefix = prefix
 	return this
 }
 
-func (this *RedisPrefixFlagHelper) WithCliContext(ctx *cli.Context) *RedisPrefixFlagHelper {
+func (this *RedisPrefixPS) WithCliContext(ctx *cli.Context) *RedisPrefixPS {
 	if this.ctx != nil {
 		panic("cli context already set")
 	}
@@ -26,7 +26,7 @@ func (this *RedisPrefixFlagHelper) WithCliContext(ctx *cli.Context) *RedisPrefix
 	return this
 }
 
-func (this *RedisPrefixFlagHelper) Name() string {
+func (this *RedisPrefixPS) Name() string {
 	name := "redis-prefix"
 	if this.prefix != "" {
 		name = this.prefix + "-" + name
@@ -34,11 +34,11 @@ func (this *RedisPrefixFlagHelper) Name() string {
 	return name
 }
 
-func (this *RedisPrefixFlagHelper) Env() string {
+func (this *RedisPrefixPS) Env() string {
 	return strcase.ToScreamingSnake(this.Name())
 }
 
-func (this *RedisPrefixFlagHelper) Flag() *cli.StringFlag {
+func (this *RedisPrefixPS) Flag() *cli.StringFlag {
 	return &cli.StringFlag{
 		Name:     this.Name(),
 		EnvVars:  []string{this.Env()},
@@ -47,6 +47,6 @@ func (this *RedisPrefixFlagHelper) Flag() *cli.StringFlag {
 	}
 }
 
-func (this *RedisPrefixFlagHelper) GetValue() string {
+func (this *RedisPrefixPS) GetValue() string {
 	return this.ctx.String(this.Name())
 }

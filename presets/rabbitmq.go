@@ -1,24 +1,24 @@
 package presets
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/iancoleman/strcase"
 	amqp "github.com/rabbitmq/amqp091-go"
 	"github.com/urfave/cli/v2"
 )
 
-type RabbitMQFlagHelper struct {
+type RabbitMQPS struct {
 	ctx    *cli.Context
 	prefix string
 }
 
-func (this *RabbitMQFlagHelper) WithPrefix(prefix string) *RabbitMQFlagHelper {
+func (this *RabbitMQPS) WithPrefix(prefix string) *RabbitMQPS {
 	this.prefix = prefix
 	return this
 }
 
-func (this *RabbitMQFlagHelper) WithCliContext(ctx *cli.Context) *RabbitMQFlagHelper {
+func (this *RabbitMQPS) WithCliContext(ctx *cli.Context) *RabbitMQPS {
 	if this.ctx != nil {
 		panic("cli context already set")
 	}
@@ -27,7 +27,7 @@ func (this *RabbitMQFlagHelper) WithCliContext(ctx *cli.Context) *RabbitMQFlagHe
 	return this
 }
 
-func (this *RabbitMQFlagHelper) Name() string {
+func (this *RabbitMQPS) Name() string {
 	name := "rabbitmq-url"
 	if this.prefix != "" {
 		name = this.prefix + "-" + name
@@ -35,32 +35,33 @@ func (this *RabbitMQFlagHelper) Name() string {
 	return name
 }
 
-func (this *RabbitMQFlagHelper) Env() string {
+func (this *RabbitMQPS) Env() string {
 	return strcase.ToScreamingSnake(this.Name())
 }
 
-func (this *RabbitMQFlagHelper) Flag() *cli.StringFlag {
+func (this *RabbitMQPS) Flag() *cli.StringFlag {
 	return &cli.StringFlag{
 		Name:     this.Name(),
 		EnvVars:  []string{this.Env()},
 		Required: true,
 		Category: "datasource",
+		Usage:    "RabbitMQ URL, e.g. amqp://user:password@localhost:5672/vhost",
 	}
 }
 
-func (this *RabbitMQFlagHelper) GetValue() string {
+func (this *RabbitMQPS) GetValue() string {
 	return this.ctx.String(this.Name())
 }
 
-func (this *RabbitMQFlagHelper) GetAMQP() *amqp.Connection {
+func (this *RabbitMQPS) GetAMQP() *amqp.Connection {
 	_, err := amqp.ParseURI(this.GetValue())
 	if err != nil {
-		panic(fmt.Sprintf("Invalid Redis URL provided by flag %s: %s", this.Name(), err))
+		log.Panicf("Invalid Redis URL provided by flag %s: %s", this.Name(), err)
 	}
 
 	conn, err := amqp.Dial(this.GetValue())
 	if err != nil {
-		panic(fmt.Sprintf("failed to connect to rabbitmq: %s", err))
+		log.Panicf("failed to connect to rabbitmq: %s", err)
 	}
 	return conn
 }
