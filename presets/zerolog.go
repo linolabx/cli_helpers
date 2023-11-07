@@ -4,8 +4,8 @@ import (
 	"log"
 	"strings"
 
-	"github.com/iancoleman/strcase"
 	"github.com/rs/zerolog"
+	"github.com/stoewer/go-strcase"
 	"github.com/urfave/cli/v2"
 )
 
@@ -49,7 +49,7 @@ func (this *ZeroLogPS) Name() string {
 }
 
 func (this *ZeroLogPS) Env() string {
-	return strcase.ToScreamingSnake(this.Name())
+	return strcase.UpperSnakeCase(this.Name())
 }
 
 func (this *ZeroLogPS) Flag() *cli.StringFlag {

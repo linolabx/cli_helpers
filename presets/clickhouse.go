@@ -4,7 +4,7 @@ import (
 	"log"
 
 	raw_clickhouse_driver "github.com/ClickHouse/clickhouse-go/v2"
-	"github.com/iancoleman/strcase"
+	"github.com/stoewer/go-strcase"
 	"github.com/urfave/cli/v2"
 	"gorm.io/driver/clickhouse"
 	"gorm.io/gorm"
@@ -44,7 +44,7 @@ func (this *ClickHousePS) Name() string {
 }
 
 func (this *ClickHousePS) Env() string {
-	return strcase.ToScreamingSnake(this.Name())
+	return strcase.UpperSnakeCase(this.Name())
 }
 
 func (this *ClickHousePS) Flag() *cli.StringFlag {

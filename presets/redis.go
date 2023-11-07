@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/go-redis/redis/v8"
-	"github.com/iancoleman/strcase"
+	"github.com/stoewer/go-strcase"
 	"github.com/urfave/cli/v2"
 )
 
@@ -42,7 +42,7 @@ func (this *RedisPS) Name() string {
 }
 
 func (this *RedisPS) Env() string {
-	return strcase.ToScreamingSnake(this.Name())
+	return strcase.UpperSnakeCase(this.Name())
 }
 
 func (this *RedisPS) Flag() *cli.StringFlag {

@@ -7,7 +7,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 	"github.com/geektheripper/vast-dsn/dsn/s3_dsn"
-	"github.com/iancoleman/strcase"
+	"github.com/stoewer/go-strcase"
 	"github.com/urfave/cli/v2"
 )
 
@@ -39,8 +39,7 @@ func (this *S3PS) Name() string {
 }
 
 func (this *S3PS) Env() string {
-	strcase.ConfigureAcronym("S3", "s3")
-	return strcase.ToScreamingSnake(this.Name())
+	return strcase.UpperSnakeCase(this.Name())
 }
 
 func (this *S3PS) Flag() *cli.StringFlag {

@@ -9,9 +9,9 @@ require (
 	github.com/geektheripper/vast-dsn v0.1.0
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/go-sql-driver/mysql v1.7.0
-	github.com/iancoleman/strcase v0.3.0
 	github.com/rabbitmq/amqp091-go v1.9.0
 	github.com/rs/zerolog v1.31.0
+	github.com/stoewer/go-strcase v1.2.0
 	github.com/urfave/cli/v2 v2.25.7
 	gorm.io/driver/clickhouse v0.5.1
 	gorm.io/driver/mysql v1.5.2

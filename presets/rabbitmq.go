@@ -3,8 +3,8 @@ package presets
 import (
 	"log"
 
-	"github.com/iancoleman/strcase"
 	amqp "github.com/rabbitmq/amqp091-go"
+	"github.com/stoewer/go-strcase"
 	"github.com/urfave/cli/v2"
 )
 
@@ -36,7 +36,7 @@ func (this *RabbitMQPS) Name() string {
 }
 
 func (this *RabbitMQPS) Env() string {
-	return strcase.ToScreamingSnake(this.Name())
+	return strcase.UpperSnakeCase(this.Name())
 }
 
 func (this *RabbitMQPS) Flag() *cli.StringFlag {

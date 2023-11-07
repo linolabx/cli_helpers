@@ -4,7 +4,7 @@ import (
 	"log"
 
 	raw_mysql_driver "github.com/go-sql-driver/mysql"
-	"github.com/iancoleman/strcase"
+	"github.com/stoewer/go-strcase"
 	"github.com/urfave/cli/v2"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -44,7 +44,7 @@ func (this *MySQLPS) Name() string {
 }
 
 func (this *MySQLPS) Env() string {
-	return strcase.ToScreamingSnake(this.Name())
+	return strcase.UpperSnakeCase(this.Name())
 }
 
 func (this *MySQLPS) Flag() *cli.StringFlag {

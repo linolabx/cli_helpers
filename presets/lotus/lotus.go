@@ -7,7 +7,7 @@ import (
 	"github.com/filecoin-project/lotus/api"
 	"github.com/filecoin-project/lotus/api/client"
 	lotus_cli_util "github.com/filecoin-project/lotus/cli/util"
-	"github.com/iancoleman/strcase"
+	"github.com/stoewer/go-strcase"
 	"github.com/urfave/cli/v2"
 )
 
@@ -39,7 +39,7 @@ func (this *LotusPS) Name() string {
 }
 
 func (this *LotusPS) Env() string {
-	return strcase.ToScreamingSnake(this.Name())
+	return strcase.UpperSnakeCase(this.Name())
 }
 
 func (this *LotusPS) Flag() *cli.StringFlag {

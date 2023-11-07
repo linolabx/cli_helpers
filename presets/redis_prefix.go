@@ -2,7 +2,7 @@ package presets
 
 import (
 	"github.com/go-redis/redis/v8"
-	"github.com/iancoleman/strcase"
+	"github.com/stoewer/go-strcase"
 	"github.com/urfave/cli/v2"
 )
 
@@ -35,7 +35,7 @@ func (this *RedisPrefixPS) Name() string {
 }
 
 func (this *RedisPrefixPS) Env() string {
-	return strcase.ToScreamingSnake(this.Name())
+	return strcase.UpperSnakeCase(this.Name())
 }
 
 func (this *RedisPrefixPS) Flag() *cli.StringFlag {
