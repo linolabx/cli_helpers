@@ -1,6 +1,9 @@
 package preset_s3
 
-import "github.com/urfave/cli/v2"
+import (
+	"github.com/iancoleman/strcase"
+	"github.com/urfave/cli/v2"
+)
 
 type S3BucketPS struct {
 	ctx    *cli.Context
@@ -30,7 +33,8 @@ func (this *S3BucketPS) Name() string {
 }
 
 func (this *S3BucketPS) Env() string {
-	return this.Name()
+	strcase.ConfigureAcronym("S3", "s3")
+	return strcase.ToScreamingSnake(this.Name())
 }
 
 func (this *S3BucketPS) Flag() *cli.StringFlag {

@@ -39,6 +39,7 @@ func (this *S3PS) Name() string {
 }
 
 func (this *S3PS) Env() string {
+	strcase.ConfigureAcronym("S3", "s3")
 	return strcase.ToScreamingSnake(this.Name())
 }
 
