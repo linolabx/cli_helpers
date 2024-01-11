@@ -1,4 +1,4 @@
-package command_helper
+package cli_helpers
 
 import (
 	"github.com/urfave/cli/v2"
