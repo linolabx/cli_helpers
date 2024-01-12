@@ -2,10 +2,8 @@ module github.com/linolabx/cli_helpers/plugins/_zerolog
 
 go 1.20
 
-replace github.com/linolabx/cli_helpers => ../../
-
 require (
-	github.com/linolabx/cli_helpers v0.0.0-00010101000000-000000000000
+	github.com/linolabx/cli_helpers/helpers v0.1.0
 	github.com/rs/zerolog v1.31.0
 	github.com/urfave/cli/v2 v2.27.1
 )

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/linolabx/cli_helpers"
+	"github.com/linolabx/cli_helpers/helpers"
 	"github.com/rs/zerolog"
 	"github.com/urfave/cli/v2"
 )
@@ -22,7 +22,7 @@ var logLevelMap = map[string]zerolog.Level{
 }
 
 type ZeroLogPS struct {
-	LogLevel    cli_helpers.FlagHelper
+	LogLevel    helpers.FlagHelper
 	logger      zerolog.Logger
 	initialized bool
 }
@@ -66,7 +66,7 @@ func (this *ZeroLogPS) GetInstance() zerolog.Logger {
 
 func NewZeroLogPS() *ZeroLogPS {
 	return &ZeroLogPS{
-		LogLevel: cli_helpers.FlagHelper{
+		LogLevel: helpers.FlagHelper{
 			Name:     "log-level",
 			Value:    "info",
 			Category: "logging",
