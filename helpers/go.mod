@@ -1,4 +1,4 @@
-module github.com/linolabx/cli_helpers
+module github.com/linolabx/cli_helpers/helpers
 
 go 1.20
 

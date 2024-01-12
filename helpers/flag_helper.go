@@ -1,4 +1,4 @@
-package cli_helpers
+package helpers
 
 import (
 	"github.com/stoewer/go-strcase"
