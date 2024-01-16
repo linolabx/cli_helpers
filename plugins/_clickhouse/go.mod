@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/ClickHouse/clickhouse-go/v2 v2.17.1
-	github.com/linolabx/cli_helpers/helpers v0.1.0
+	github.com/linolabx/cli_helpers/helpers v0.1.2
 	github.com/urfave/cli/v2 v2.27.1
 	gorm.io/driver/clickhouse v0.6.0
 	gorm.io/gorm v1.25.5

@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/gin-gonic/gin v1.9.1
-	github.com/linolabx/cli_helpers/helpers v0.1.0
+	github.com/linolabx/cli_helpers/helpers v0.1.2
 	github.com/urfave/cli/v2 v2.27.1
 )
 

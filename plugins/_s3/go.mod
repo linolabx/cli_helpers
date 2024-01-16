@@ -6,7 +6,7 @@ require (
 	github.com/aws/aws-sdk-go v1.49.19
 	github.com/geektheripper/vast-dsn v0.1.1
 	github.com/geektheripper/vast-dsn/s3_dsn v0.0.1
-	github.com/linolabx/cli_helpers/helpers v0.1.0
+	github.com/linolabx/cli_helpers/helpers v0.1.2
 	github.com/urfave/cli/v2 v2.27.1
 )
 

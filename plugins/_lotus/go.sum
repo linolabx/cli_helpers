@@ -582,8 +582,8 @@ github.com/libp2p/go-yamux v1.2.2/go.mod h1:FGTiPvoV/3DVdgWpX+tM0OW3tsM+W5bSE3gZ
 github.com/libp2p/go-yamux v1.2.3 h1:xX8A36vpXb59frIzWFdEgptLMsOANMFq2K7fPRlunYI=
 github.com/libp2p/go-yamux v1.2.3/go.mod h1:FGTiPvoV/3DVdgWpX+tM0OW3tsM+W5bSE3gZwqQTcow=
 github.com/libp2p/go-yamux/v4 v4.0.1 h1:FfDR4S1wj6Bw2Pqbc8Uz7pCxeRBPbwsBbEdfwiCypkQ=
-github.com/linolabx/cli_helpers/helpers v0.1.0 h1:hHwGB03Glj5Irio+vuKZhZa56KsXlyf4XgV+YVkB8Hc=
-github.com/linolabx/cli_helpers/helpers v0.1.0/go.mod h1:WhxOIT+A/7A7SJLRey6wUWjV+122+2qLZtRekrj7PkU=
+github.com/linolabx/cli_helpers/helpers v0.1.2 h1:pZb7LxxftV4JJFXbR38JkLbfjgi397k40ED7v5fj+SI=
+github.com/linolabx/cli_helpers/helpers v0.1.2/go.mod h1:WhxOIT+A/7A7SJLRey6wUWjV+122+2qLZtRekrj7PkU=
 github.com/magefile/mage v1.9.0 h1:t3AU2wNwehMCW97vuqQLtw6puppWXHO+O2MHo5a50XE=
 github.com/magefile/mage v1.9.0/go.mod h1:z5UZb/iS3GoOSn0JgWuiw7dxlurVYTu+/jHXqQg881A=
 github.com/magiconair/properties v1.8.0/go.mod h1:PppfXfuXeibc/6YijjN8zIbojt8czPbwD3XqdrwzmxQ=
