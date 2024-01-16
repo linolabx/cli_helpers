@@ -21,7 +21,7 @@ func (this *CommandHelper) AddPlugin(plugin CommandPlugin) {
 	this.Plugins = append(this.Plugins, plugin)
 }
 
-func (this *CommandHelper) GetCommand() *cli.Command {
+func (this CommandHelper) GetCommand() *cli.Command {
 	for _, plugin := range this.Plugins {
 		if err := plugin.HandleCommand(this.Command); err != nil {
 			log.Printf("plugin faild to handle command in %s", this.Command.Name)
