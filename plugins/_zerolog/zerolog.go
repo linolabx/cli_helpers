@@ -58,7 +58,7 @@ func (this *ZeroLogPS) HandleContext(cCtx *cli.Context) error {
 
 func (this *ZeroLogPS) GetInstance() zerolog.Logger {
 	if !this.initialized {
-		panic("zerolog not inited")
+		panic("ZeroLogPS not initialized")
 	}
 
 	return this.logger
