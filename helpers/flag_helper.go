@@ -40,6 +40,7 @@ func (this *FlagHelper) StringFlag() *cli.StringFlag {
 			Value:    this.Value,
 			Usage:    this.Usage,
 			Required: this.Required,
+			Category: this.Category,
 		}
 	}
 	return this.flag.(*cli.StringFlag)
