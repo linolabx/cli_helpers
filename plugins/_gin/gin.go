@@ -39,6 +39,7 @@ func (this *GinPS) HandleCommand(cmd *cli.Command) error {
 
 func (this *GinPS) HandleContext(cCtx *cli.Context) error {
 	this.addr = this.Addr.StringValue(cCtx)
+	this.initialized = true
 	return nil
 }
 

@@ -38,6 +38,7 @@ func (this *RabbitMQPS) HandleContext(cCtx *cli.Context) error {
 	}
 
 	this.url = url
+	this.initialized = true
 	return nil
 }
 
