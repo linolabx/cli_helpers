@@ -3,8 +3,8 @@ package _redis
 import (
 	"fmt"
 
-	"github.com/go-redis/redis/v8"
 	"github.com/linolabx/cli_helpers/helpers"
+	"github.com/redis/go-redis/v9"
 	"github.com/urfave/cli/v2"
 )
 
