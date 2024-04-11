@@ -12,13 +12,13 @@ func FlagHelperTest(arguments []string, plugin CommandPlugin, callback func()) {
 		Name: "app",
 		Commands: []*cli.Command{
 			(&CommandHelper{
-				Command: &cli.Command{Name: "demo"},
+				command: &cli.Command{Name: "demo"},
 				Plugins: []CommandPlugin{plugin},
 				Action: func(cCtx *cli.Context) error {
 					callback()
 					return nil
 				},
-			}).GetCommand(),
+			}).Export(),
 		},
 	}).Run(argv)
 }
