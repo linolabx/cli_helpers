@@ -81,6 +81,9 @@ func (this *CommandHelper) AddPlugin(plugin CommandPlugin) {
 }
 
 func (this CommandHelper) Export() *cli.Command {
+	if this.command == nil {
+		this.command = &cli.Command{}
+	}
 	this.command.Name = this.Name
 	this.command.Aliases = this.Aliases
 	this.command.Usage = this.Usage
