@@ -1,4 +1,4 @@
-module github.com/linolabx/cli_helpers/plugins/_postgress
+module github.com/linolabx/cli_helpers/plugins/_postgres
 
 go 1.20
 
