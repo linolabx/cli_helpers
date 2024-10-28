@@ -1,4 +1,4 @@
-module github.com/linolabx/cli_helpers/plugins/_elasticsearch
+module github.com/linolabx/cli_helpers/plugins/_es
 
 go 1.21.8
 
