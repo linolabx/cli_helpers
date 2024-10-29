@@ -35,7 +35,7 @@ func (this *PostgresPS) HandleCommand(cmd *cli.Command) error {
 
 func (this *PostgresPS) HandleContext(cCtx *cli.Context) error {
 	url := this.PostgresUrl.StringValue(cCtx)
-	_, err := pq.ParseURL(this.url)
+	_, err := pq.ParseURL(url)
 	if err != nil {
 		return err
 	}
