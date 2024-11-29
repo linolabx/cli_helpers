@@ -114,6 +114,8 @@ func (this CommandHelper) Export() *cli.Command {
 		}
 	}
 
+	this.command.Flags = append(this.command.Flags, this.Flags...)
+
 	this.command.Action = func(cCtx *cli.Context) error {
 		for _, plugin := range this.Plugins {
 			plugin.HandleContext(cCtx)
