@@ -4,6 +4,7 @@ go 1.20
 
 require (
 	github.com/linolabx/cli_helpers/helpers v0.1.2
+	github.com/michaelklishin/rabbit-hole/v2 v2.16.0
 	github.com/rabbitmq/amqp091-go v1.9.0
 	github.com/urfave/cli/v2 v2.27.1
 )
